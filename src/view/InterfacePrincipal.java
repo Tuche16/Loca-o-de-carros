@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -326,12 +327,17 @@ public class InterfacePrincipal extends javax.swing.JFrame {
             
             /*recebe os resultados da melhor loja após os cálculos dos valores de locação para cada loja de acordo com o tipo de 
             carro, quantidade de pessoas e datas*/
-            String resultado[]=this.lojaController.compararLojas(resultadoLeitura1[0], Integer.parseInt(resultadoLeitura1[1]), resultadoleitura2);
+            try{
+                String resultado[]=this.lojaController.compararLojas(resultadoLeitura1[0], Integer.parseInt(resultadoLeitura1[1]), resultadoleitura2);
+                this.lbLoja.setText(resultado[0]); //atribui o nome da loja com melhor resultado a uma Label da interface
+                this.lbCarro.setText(resultado[1]); //atribui o modelo do carro da loja com melhor resultado a uma Label da interface
+                this.lbTotal.setText("R$ "+resultado[2]); //atribui o valor total da locação a uma Label da interface
+                System.out.println(resultado[1]+":"+resultado[0]); //printa o '<CARROS_DISPONIVEIS:LOCADORA>'
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null,"Por favor, carregue um arquivo de texto no formato informado!","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
+            }
             
-            this.lbLoja.setText(resultado[0]); //atribui o nome da loja com melhor resultado a uma Label da interface
-            this.lbCarro.setText(resultado[1]); //atribui o modelo do carro da loja com melhor resultado a uma Label da interface
-            this.lbTotal.setText("R$ "+resultado[2]); //atribui o valor total da locação a uma Label da interface
-            System.out.println(resultado[1]+":"+resultado[0]); //printa o '<CARROS_DISPONIVEIS:LOCADORA>'
 
     }//GEN-LAST:event_btVerificarActionPerformed
 
